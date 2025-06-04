@@ -1,0 +1,13 @@
+{
+  "name": "voice-agent",
+  "version": "0.1.0",
+  "main": "App.js",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "@react-native-voice/voice": "^3.2.0",
+    "expo": "~48.0.0",
+    "expo-speech": "~11.1.0",
+    "react": "18.2.0",
+    "react-native": "0.71.8"
+  }
+}
