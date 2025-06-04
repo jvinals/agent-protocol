@@ -2,8 +2,8 @@
 
 This is a simple FastAPI server that exposes two endpoints:
 
-- `/chat` receives a piece of text and echoes back a response. Replace the logic with an AI model (e.g. OpenAI) to create a real agent.
-- `/tts` converts text to speech using `pyttsx3` and returns an MP3 file.
+- `/chat` receives text and echoes back a response. Replace the logic with your own AI model to create a real agent.
+- `/tts` converts text to speech using the ElevenLabs API and returns an MP3 file.
 
 ## Setup
 
@@ -13,3 +13,8 @@ uvicorn app:app --reload
 ```
 
 The server listens on `http://localhost:8000` by default.
+
+Set the following environment variables for ElevenLabs:
+
+- `ELEVENLABS_API_KEY` – your API key
+- `ELEVENLABS_VOICE_ID` – optional voice identifier (defaults to `21m00Tcm4TlvDq8ikWAM`)

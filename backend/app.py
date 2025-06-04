@@ -1,9 +1,8 @@
-from fastapi import FastAPI, UploadFile, File, Response
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
-import openai
-import io
-import pyttsx3
 from pydantic import BaseModel
+import os
+import requests
 
 app = FastAPI()
 
@@ -20,14 +19,26 @@ class ChatRequest(BaseModel):
 
 @app.post('/chat')
 async def chat(request: ChatRequest):
-    # Simple echo chatbot; replace with openai.ChatCompletion for actual AI
+    # Simple echo chatbot; replace with an actual model for real conversations
     response_text = f"You said: {request.text}"
     return {"response": response_text}
 
 @app.post('/tts')
 async def tts(request: ChatRequest):
-    engine = pyttsx3.init()
-    engine.save_to_file(request.text, 'response.mp3')
-    engine.runAndWait()
-    audio_bytes = open('response.mp3', 'rb').read()
-    return Response(content=audio_bytes, media_type='audio/mpeg')
+    api_key = os.getenv('ELEVENLABS_API_KEY')
+    voice_id = os.getenv('ELEVENLABS_VOICE_ID', '21m00Tcm4TlvDq8ikWAM')
+    url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}"
+    headers = {
+        'xi-api-key': api_key,
+        'Content-Type': 'application/json'
+    }
+    payload = {
+        'text': request.text,
+        'voice_settings': {
+            'stability': 0.5,
+            'similarity_boost': 0.75
+        }
+    }
+    resp = requests.post(url, json=payload)
+    resp.raise_for_status()
+    return Response(content=resp.content, media_type='audio/mpeg')

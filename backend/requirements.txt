@@ -1,4 +1,3 @@
 fastapi
 uvicorn
-openai
-pyttsx3
+requests

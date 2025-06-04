@@ -2,7 +2,7 @@
 
 A minimal React Native app that interacts with the backend entirely through voice.
 When the app loads it starts listening for speech, sends transcribed text to the
-backend and speaks the response.
+backend and plays back the response audio from the ElevenLabs-powered backend.
 
 ## Setup
 
